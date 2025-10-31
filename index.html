@@ -7,7 +7,7 @@
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
     body {
-      background: url('https://s3.iimg.su/s/31/gZdZpllxB9e3je11vWldGm2Mz1LfnoNQqaRr5jLH.jpg') center/cover no-repeat;
+      background: url('https://s3.iimg.su/s/31/gRrsuqjxRrE4umGflGaFKm4Xhffyr4qmAS7KttTR.jpg') center/cover no-repeat;
       height: 100vh;
       display: flex;
       justify-content: center;
@@ -27,6 +27,11 @@
       z-index: 2;
       max-width: 90%;
       padding: 20px;
+      animation: fadeIn 1.5s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
     h1 {
       font-size: 2.3em;
@@ -41,6 +46,7 @@
       font-size: 1em;
       color: #ff4da6;
       margin-bottom: 30px;
+      transition: 0.3s;
     }
     a.button {
       display: inline-block;
@@ -68,8 +74,26 @@
     <h1>💋 Добро пожаловать в мой VIP-канал</h1>
     <p>🔥 Здесь только мой настоящий контент.<br>
     📸 Эксклюзив, доступный лишь для избранных.</p>
-    <div class="counter">⏳ Осталось 35 мест</div>
+    <div class="counter">⏳ Осталось <span id="spots">35</span> мест</div>
     <a href="https://t.me/+WaZwwVIDI2BmYTM6" target="_blank" class="button">JOIN CHANNEL</a>
   </div>
+
+  <script>
+    let spots = 35;
+    const spotsElement = document.getElementById('spots');
+
+    function decreaseSpots() {
+      if (spots > 8) { // Минимум 8 мест остаётся
+        const decreaseBy = Math.random() < 0.5 ? 1 : 2; // Минус 1 или 2
+        spots = Math.max(8, spots - decreaseBy);
+        spotsElement.textContent = spots;
+      }
+      const nextChange = Math.random() * (60000 - 30000) + 30000; // от 30 до 60 секунд
+      setTimeout(decreaseSpots, nextChange);
+    }
+
+    setTimeout(decreaseSpots, 5000);
+  </script>
 </body>
 </html>
+
